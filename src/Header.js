@@ -1,8 +1,9 @@
 import Card from "./components/Card";
 
-export function Header() {
+export function Header({ xyzz }) {
     return (
         <>
+            {xyzz}
             <Card />
             <Card />
             <Article />
