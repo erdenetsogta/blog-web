@@ -5,6 +5,7 @@ import { Header } from "./Header";
 
 // or less ideally
 import { Button } from "react-bootstrap";
+import { CategoryList } from "./components/CategoryList";
 import "./main.css";
 
 const containerStyle = {
@@ -35,6 +36,8 @@ function App() {
             </div>
 
             <hr />
+
+            <CategoryList editable={false} deletable={false} />
 
             <div></div>
         </>
