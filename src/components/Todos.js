@@ -1,34 +1,20 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { TodosError } from "./TodosError";
 import { TodosList } from "./TodosList";
 import { TodosNew } from "./TodosNew";
 
 export function Todos() {
-    const [text, setText] = useState("");
     const [todos, setTodos] = useState([]);
-    const [error, setError] = useState("");
     const [editingTexts, setEditingTexts] = useState({});
 
-    function handleTextChange(e) {
-        setText(e.target.value);
-    }
-
-    function addTodo() {
-        if (text === "") {
-            setError("Utgaa bichne uu");
-        } else {
-            const newTodo = {
-                text: text,
-                done: false,
-                id: uuidv4(),
-            };
-            const newTodos = [newTodo, ...todos];
-            setTodos(newTodos);
-
-            setText("");
-            setError("");
-        }
+    function handleSave(text) {
+        const newTodo = {
+            text: text,
+            done: false,
+            id: uuidv4(),
+        };
+        const newTodos = [newTodo, ...todos];
+        setTodos(newTodos);
     }
 
     function handleDelete12(bairlal1) {
@@ -82,16 +68,9 @@ export function Todos() {
         cancelEditing(id);
     }
 
-    function handleKeyUp(e) {
-        if (e.code === "Enter") {
-            addTodo();
-        }
-    }
-
     return (
         <div>
-            <TodosNew text={text} error={error} handleTextChange={handleTextChange} handleKeyUp={handleKeyUp} addTodo={addTodo} />
-            <TodosError error={error} />
+            <TodosNew onSave={handleSave} />
 
             <TodosList
                 todos={todos}
