@@ -9,7 +9,6 @@ export function Todos() {
     function handleSave(text) {
         const newTodo = {
             text: text,
-            done: false,
             id: uuidv4(),
         };
         const newTodos = [newTodo, ...todos];
