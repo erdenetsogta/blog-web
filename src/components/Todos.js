@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { TodosList } from "./TodosList";
+import { TodoListItem } from "./TodosListItem";
 import { TodosNew } from "./TodosNew";
 
 export function Todos() {
     const [todos, setTodos] = useState([]);
-    const [editingTexts, setEditingTexts] = useState({});
 
     function handleSave(text) {
         const newTodo = {
@@ -17,71 +16,29 @@ export function Todos() {
         setTodos(newTodos);
     }
 
-    function handleDelete12(bairlal1) {
+    function handleDelete(index) {
         if (window.confirm("Устах уу?")) {
             const newTodos = [...todos];
-            newTodos.splice(bairlal1, 1); // delete item from array using index
+            newTodos.splice(index, 1);
             setTodos(newTodos);
         }
     }
 
-    function handleDoneChange(id, e) {
+    function handleUpdate(index, text) {
         const newTodos = [...todos];
-
-        let index;
-        for (let i = 0; i < todos.length; i++) {
-            if (id === todos[i].id) {
-                index = i;
-                break;
-            }
-        }
-        // const index = newTodos.findIndex((todo) => todo.id === id);
-
-        newTodos[index].done = !newTodos[index].done; // e.target.checked;
-
+        newTodos[index].text = text;
         setTodos(newTodos);
-    }
-
-    function editTodoInline(id, index) {
-        const newEditingTexts = { ...editingTexts };
-        newEditingTexts[id] = todos[index].text;
-        setEditingTexts(newEditingTexts);
-    }
-
-    function handleEditingText(id, e) {
-        const newEditingTexts = { ...editingTexts };
-        newEditingTexts[id] = e.target.value;
-        setEditingTexts(newEditingTexts);
-    }
-
-    function cancelEditing(id) {
-        const newEditingTexts = { ...editingTexts };
-        newEditingTexts[id] = undefined;
-        setEditingTexts(newEditingTexts);
-    }
-
-    function updateEditingText(index, id) {
-        const newTodos = [...todos];
-        newTodos[index].text = editingTexts[id];
-        setTodos(newTodos);
-
-        cancelEditing(id);
     }
 
     return (
         <div>
             <TodosNew onSave={handleSave} />
 
-            <TodosList
-                todos={todos}
-                editingTexts={editingTexts}
-                handleEditingText={handleEditingText}
-                cancelEditing={cancelEditing}
-                updateEditingText={updateEditingText}
-                handleDoneChange={handleDoneChange}
-                editTodoInline={editTodoInline}
-                handleDelete12={handleDelete12}
-            />
+            <ul>
+                {todos.map((todo, index) => {
+                    return <TodoListItem key={todo.id} todo={todo} onUpdate={(text) => handleUpdate(index, text)} onDelete={() => handleDelete(index)} />;
+                })}
+            </ul>
         </div>
     );
 }
