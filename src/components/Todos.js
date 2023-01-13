@@ -7,11 +7,14 @@ export function Todos() {
     const [todos, setTodos] = useState([]);
 
     function handleSave(text) {
-        const newTodo = {
-            text: text,
-            id: uuidv4(),
-        };
-        const newTodos = [newTodo, ...todos];
+        // const newTodo = ;
+        const newTodos = [
+            {
+                text: text,
+                id: uuidv4(),
+            },
+            ...todos,
+        ];
         setTodos(newTodos);
     }
 
