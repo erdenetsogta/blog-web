@@ -1,21 +1,32 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-awesome-button/dist/styles.css";
-import Container from "react-bootstrap/Container";
-import { Greetings } from "./components/Greeting";
-// import { Categories } from "./components/Categories";
-import { Todos } from "./components/Todos";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AdminApp } from "./components/admin/AdminApp";
+import { ClientApp } from "./components/client/ClientApp";
 
-const age = 77;
+// const router = createBrowserRouter([
+//     {
+//         path: "/admin",
+//         element: <AdminApp />,
+//     },
+
+//     {
+//         path: "*",
+//         element: <ClientApp />,
+//     },
+// ]);
 
 function App() {
     return (
-        <Container>
-            <Todos />
-            <Greetings name="Baldan" age={20} />
-            <Greetings name="Yunden" age={19} />
-            <Greetings name="Horolmaa" age={age} />
-        </Container>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/admin/*" element={<AdminApp />} />
+                <Route path="*" element={<ClientApp />} />
+            </Routes>
+        </BrowserRouter>
     );
+
+    // <RouterProvider router={router} />;
 }
 
 export default App;
