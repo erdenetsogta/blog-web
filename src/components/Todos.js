@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { TodoListItem } from "./TodosListItem";
 import { TodosNew } from "./TodosNew";
@@ -16,6 +17,16 @@ export function Todos() {
             ...todos,
         ];
         setTodos(newTodos);
+        toast.warn("🦄 Wow so easy!", {
+            position: "top-right",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     function handleDelete(index) {
