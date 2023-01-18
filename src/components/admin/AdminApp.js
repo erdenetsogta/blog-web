@@ -5,6 +5,7 @@ import { Todos } from "../Todos";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Navigate } from "react-router-dom";
 
 // [category, todos, client, todos]
 
@@ -17,24 +18,34 @@ export function AdminApp() {
                 <Route path="/todos" element={<TodoNavbar />} />
             </Routes>
             <NavLink
-                style={({ isActive }) => ({
-                    background: isActive ? "red" : "teal",
-                })}
+                // style={({ isActive }) => ({
+                //     background: isActive ? "red" : "teal",
+                // })}
                 to="/admin/categories"
+                className={({ isActive }) => (isActive ? "activeClassName" : undefined)}
             >
                 Categories
             </NavLink>{" "}
             <NavLink
-                style={({ isActive }) => ({
-                    background: isActive ? "red" : "teal",
-                })}
+                // style={({ isActive }) => ({
+                //     background: isActive ? "red" : "teal",
+                // })}
                 to="/admin/todos"
+                className={({ isActive }) => (isActive ? "activeClassName" : undefined)}
             >
                 Todos
             </NavLink>
             <div style={{ maxWidth: 700, margin: "2rem auto" }}>
                 <Routes>
-                    <Route path="/" element={<div>Welcome to admin</div>} />
+                    <Route
+                        path="/"
+                        element={
+                            <div>
+                                <p>Welcome</p>
+                                <Navigate to="/admin/categories" />
+                            </div>
+                        }
+                    />
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/todos" element={<Todos />} />
                 </Routes>
@@ -78,23 +89,10 @@ function TodoNavbar() {
                         <Nav.Link to="/admin" as={Link}>
                             Home
                         </Nav.Link>
-                        <Nav.Link
-                            to="/admin/categories"
-                            as={NavLink}
-                            style={({ isActive }) => ({
-                                background: isActive ? "red" : "none",
-                            })}
-                        >
+                        <Nav.Link to="/admin/categories" as={NavLink} className={({ isActive }) => (isActive ? "activeClassName" : undefined)}>
                             Categories
                         </Nav.Link>
-                        <Nav.Link
-                            to="/admin/todos"
-                            as={NavLink}
-                            style={({ isActive }) => ({
-                                background: isActive ? "red" : "none",
-                                fontSize: isActive ? 30 : 20,
-                            })}
-                        >
+                        <Nav.Link to="/admin/todos" as={NavLink} className={({ isActive }) => (isActive ? "activeClassName" : undefined)}>
                             Todo
                         </Nav.Link>
                         <Nav.Link to="/admin/todos" as={Link}>
