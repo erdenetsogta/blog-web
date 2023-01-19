@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Navigate } from "react-router-dom";
+import { Articles } from "./Articles";
 
 // [category, todos, client, todos]
 
@@ -48,6 +49,7 @@ export function AdminApp() {
                     />
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/todos" element={<Todos />} />
+                    <Route path="/articles" element={<Articles />} />
                 </Routes>
             </div>
         </>
@@ -70,6 +72,9 @@ function AdminNavbar() {
                         </Nav.Link>
                         <Nav.Link to="/admin/todos" as={Link}>
                             Todo
+                        </Nav.Link>
+                        <Nav.Link to="/admin/articles" as={Link}>
+                            Articles
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
