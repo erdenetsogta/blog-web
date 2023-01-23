@@ -1,13 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-import { categories } from "../mockdata/categories";
-
-export function CategoriesList() {
+export function CategoriesList({ list }) {
     return (
         <>
-            {categories.map((angilal) => (
-                <ListItem category={angilal} />
+            {list.map((item) => (
+                <ListItem key={item.id} category={item} />
             ))}
         </>
     );
@@ -19,7 +17,7 @@ function ListItem({ category }) {
             <Card.Body>
                 <div className="d-flex justify-content-between align-items-center">
                     <div>
-                        {category.name} #{category.id}
+                        {category.title} #{category.id}
                     </div>
 
                     <div>

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodosError } from "./TodosError";
 
 export function TodosNew({ onSave }) {
     const [text, setText] = useState("");
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        console.log("effect");
+    }, [text]);
 
     function handleTextChange(e) {
         setText(e.target.value);
@@ -29,7 +33,6 @@ export function TodosNew({ onSave }) {
         <>
             <input value={text} style={{ borderColor: error ? "red" : "black" }} onChange={handleTextChange} onKeyUp={handleKeyUp} />
             <button onClick={handleSave}>Хадгалах</button>
-
             <TodosError error={error} />
         </>
     );
