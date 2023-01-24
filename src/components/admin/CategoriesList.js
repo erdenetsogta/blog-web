@@ -1,3 +1,4 @@
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
@@ -12,6 +13,15 @@ export function CategoriesList({ list }) {
 }
 
 function ListItem({ category }) {
+    function handleDelete() {
+        if (window.confirm("Delete?")) {
+            axios.delete(`https://dummyjson.com/products/${category.id}`).then((res) => {
+                const { data, status } = res;
+                console.log({ data, status });
+            });
+        }
+    }
+
     return (
         <Card key={category.id} className="mb-2">
             <Card.Body>
@@ -21,7 +31,10 @@ function ListItem({ category }) {
                     </div>
 
                     <div>
-                        <Button variant="outline-primary">Засах</Button> <Button variant="outline-danger">Устгах</Button>
+                        <Button variant="outline-primary">Засах</Button>{" "}
+                        <Button variant="outline-danger" onClick={handleDelete}>
+                            Устгах
+                        </Button>
                     </div>
                 </div>
             </Card.Body>
