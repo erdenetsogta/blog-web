@@ -1,7 +1,13 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CategoriesEdit } from "./CategoriesEdit";
 import { CategoriesList } from "./CategoriesList";
+
+axios.interceptors.request.use((config) => {
+    console.log("Request sent to: ", config.url);
+    return config;
+});
 
 export function Categories() {
     const [searchParams, setSearchParams] = useSearchParams({});
@@ -9,9 +15,18 @@ export function Categories() {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        fetch("https://dummyjson.com/products")
-            .then((req) => req.json())
-            .then((data) => setList(data.products));
+        // fetch("https://dummyjson.com/products")
+        //     .then((req) => req.json())
+        //     .then((data) => setList(data.products));
+
+        axios.get("https://dummyjson.com/products").then((res) => {
+            const { data, status } = res;
+            if (status === 200) {
+                setList(data.products);
+            } else {
+                alert(`Aldaa garlaa: ${status}`);
+            }
+        });
     }, []);
 
     function closeModal() {
