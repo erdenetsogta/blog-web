@@ -12,13 +12,13 @@ export function CategoriesEdit({ show, onClose, onComplete }) {
         setLoading(true);
 
         axios
-            .post("https://dummyjson.com/products/add", {
-                title: name,
+            .post("http://localhost:8000/categories", {
+                name: name,
             })
             .then((res) => {
-                const { data, status } = res;
-                if (status === 200) {
-                    onComplete(data);
+                const { status } = res;
+                if (status === 201) {
+                    onComplete();
                     onClose();
                     setLoading(false);
                 }

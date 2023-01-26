@@ -14,27 +14,27 @@ export function Categories() {
 
     const [list, setList] = useState([]);
 
-    useEffect(() => {
-        // fetch("https://dummyjson.com/products")
-        //     .then((req) => req.json())
-        //     .then((data) => setList(data.products));
-
-        axios.get("https://dummyjson.com/products").then((res) => {
+    function loadCategories() {
+        axios.get("http://localhost:8000/categories").then((res) => {
             const { data, status } = res;
             if (status === 200) {
-                setList(data.products);
+                setList(data);
             } else {
                 alert(`Aldaa garlaa: ${status}`);
             }
         });
+    }
+
+    useEffect(() => {
+        loadCategories();
     }, []);
 
     function closeModal() {
         setSearchParams({});
     }
 
-    function handleComplete(newItem) {
-        setList([newItem, ...list]);
+    function handleComplete() {
+        loadCategories();
     }
 
     const editing = searchParams.get("editing") === "new";

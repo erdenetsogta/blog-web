@@ -15,7 +15,7 @@ export function CategoriesList({ list }) {
 function ListItem({ category }) {
     function handleDelete() {
         if (window.confirm("Delete?")) {
-            axios.delete(`https://dummyjson.com/products/${category.id}`).then((res) => {
+            axios.delete(`http://localhost:8000/categories/${category.id}`).then((res) => {
                 const { data, status } = res;
                 console.log({ data, status });
             });
@@ -26,9 +26,7 @@ function ListItem({ category }) {
         <Card key={category.id} className="mb-2">
             <Card.Body>
                 <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                        {category.title} #{category.id}
-                    </div>
+                    <div>{category.name}</div>
 
                     <div>
                         <Button variant="outline-primary">Засах</Button>{" "}
