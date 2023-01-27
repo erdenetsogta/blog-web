@@ -33,10 +33,6 @@ export function Categories() {
         setSearchParams({});
     }
 
-    function handleComplete() {
-        loadCategories();
-    }
-
     const editing = searchParams.get("editing") === "new";
 
     return (
@@ -48,8 +44,8 @@ export function Categories() {
                 </button>
             </div>
 
-            <CategoriesList list={list} />
-            <CategoriesEdit show={editing} onClose={closeModal} onComplete={handleComplete} />
+            <CategoriesList list={list} onChange={loadCategories} />
+            <CategoriesEdit show={editing} onClose={closeModal} onComplete={loadCategories} />
         </div>
     );
 }

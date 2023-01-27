@@ -21,6 +21,7 @@ export function CategoriesEdit({ show, onClose, onComplete }) {
                     onComplete();
                     onClose();
                     setLoading(false);
+                    setName("");
                 }
             });
     }
