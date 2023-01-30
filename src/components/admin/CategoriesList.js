@@ -1,6 +1,7 @@
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useSearchParams } from "react-router-dom";
 
 export function CategoriesList({ list, onChange }) {
     return (
@@ -13,6 +14,8 @@ export function CategoriesList({ list, onChange }) {
 }
 
 function ListItem({ category, onChange }) {
+    const [searchParams, setSearchParams] = useSearchParams({});
+
     function handleDelete() {
         if (window.confirm("Delete?")) {
             axios.delete(`http://localhost:8000/categories/${category.id}`).then((res) => {
@@ -31,7 +34,9 @@ function ListItem({ category, onChange }) {
                     <div>{category.name}</div>
 
                     <div>
-                        <Button variant="outline-primary">Засах</Button>{" "}
+                        <Button variant="outline-primary" onClick={() => setSearchParams({ editing: category.id })}>
+                            Засах
+                        </Button>{" "}
                         <Button variant="outline-danger" onClick={handleDelete}>
                             Устгах
                         </Button>

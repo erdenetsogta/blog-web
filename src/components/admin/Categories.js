@@ -14,8 +14,8 @@ export function Categories() {
 
     const [list, setList] = useState([]);
 
-    function loadCategories() {
-        axios.get("http://localhost:8000/categories").then((res) => {
+    function loadCategories(query) {
+        axios.get(`http://localhost:8000/categories?query=${query}`).then((res) => {
             const { data, status } = res;
             if (status === 200) {
                 setList(data);
@@ -33,7 +33,7 @@ export function Categories() {
         setSearchParams({});
     }
 
-    const editing = searchParams.get("editing") === "new";
+    const editing = searchParams.get("editing");
 
     return (
         <div>
@@ -43,9 +43,9 @@ export function Categories() {
                     Шинэ
                 </button>
             </div>
-
+            <input /> <button onClick={() => loadCategories("Politics")}>Хайх</button>
             <CategoriesList list={list} onChange={loadCategories} />
-            <CategoriesEdit show={editing} onClose={closeModal} onComplete={loadCategories} />
+            <CategoriesEdit show={editing} editingId={editing} onClose={closeModal} onComplete={loadCategories} />
         </div>
     );
 }
