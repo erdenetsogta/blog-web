@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { Articles } from "./Articles";
+import { ArticlesNew } from "./ArticlesNew";
 import { Categories } from "./Categories";
 import { Todos } from "./Todos";
 
@@ -17,6 +18,7 @@ export function AdminApp() {
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/todos" element={<Todos />} />
                     <Route path="/articles" element={<Articles />} />
+                    <Route path="/articles/new" element={<ArticlesNew />} />
                 </Routes>
             </div>
         </>
