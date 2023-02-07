@@ -1,11 +1,15 @@
 import axios from "axios";
 import parse from "html-react-parser";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Route, Routes, useParams } from "react-router-dom";
+import { UserContext } from "../../App";
 
 export function ClientApp() {
+    const displayName = useContext(UserContext);
+
     return (
         <div>
+            {displayName}
             {/* <ParticlesSample /> */}
             <div>
                 <Link to="/">Home</Link> <Link to="/blog">Blog</Link>

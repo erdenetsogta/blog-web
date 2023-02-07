@@ -1,17 +1,21 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { UserContext } from "../../App";
 import { Articles } from "./Articles";
 import { ArticlesNew } from "./ArticlesNew";
 import { Categories } from "./Categories";
 import { Todos } from "./Todos";
 
 export function AdminApp() {
+    const displayName = useContext(UserContext);
+
     return (
         <>
+            {displayName.greeting} {displayName.name}
             <AdminNavbar />
-
             <div style={{ maxWidth: 700, margin: "2rem auto" }}>
                 <Routes>
                     <Route path="/" element={<Navigate to="/admin/categories" />} />
@@ -26,10 +30,16 @@ export function AdminApp() {
 }
 
 function AdminNavbar() {
+    const displayName = useContext(UserContext);
+
+    // const theme = useContext(ThemeContext); //dark, light
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">ADMIN</Navbar.Brand>
+                <Navbar.Brand href="#home">
+                    {displayName.greeting} {displayName.name}
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
