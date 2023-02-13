@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { CategoriesEdit } from "./CategoriesEdit";
 import { CategoriesList } from "./CategoriesList";
+import { useCategories } from "./useCategories";
+import { useFetch } from "./useFetch";
 
 axios.interceptors.request.use((config) => {
     console.log("Request sent to: ", config.url);
@@ -14,27 +16,10 @@ export function Categories() {
     const [searchParams, setSearchParams] = useSearchParams({});
     const [query, setQuery] = useState("");
     const [searchedQuery] = useDebounce(query, 1000);
+    const categories = useCategories();
+    const articles = useFetch("http://localhost:8000/articles?page=1");
 
-    const [list, setList] = useState([]);
-
-    function loadCategories(query = "") {
-        axios.get(`http://localhost:8000/categories?q=${query}`).then((res) => {
-            const { data, status } = res;
-            if (status === 200) {
-                setList(data);
-            } else {
-                alert(`Aldaa garlaa: ${status}`);
-            }
-        });
-    }
-
-    useEffect(() => {
-        loadCategories(searchedQuery);
-    }, [searchedQuery]);
-
-    useEffect(() => {
-        loadCategories();
-    }, []);
+    console.log({ articles });
 
     function closeModal() {
         setSearchParams({});
@@ -54,8 +39,8 @@ export function Categories() {
             <input value={query} onChange={(e) => setQuery(e.target.value)} />
             {/* <button onClick={() => loadCategories(query)}>Хайх</button> */}
 
-            <CategoriesList searchedQuery={searchedQuery} list={list} onChange={loadCategories} />
-            <CategoriesEdit show={editing} editingId={editing} onClose={closeModal} onComplete={loadCategories} />
+            <CategoriesList searchedQuery={searchedQuery} list={categories} />
+            <CategoriesEdit show={editing} editingId={editing} onClose={closeModal} />
         </div>
     );
 }

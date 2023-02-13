@@ -1,19 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCategories } from "./useCategories";
 
 export function CategoriesSelector({ value, onChange }) {
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        axios.get(`http://localhost:8000/categories`).then((res) => {
-            const { data, status } = res;
-            if (status === 200) {
-                setCategories(data);
-            } else {
-                alert(`Aldaa garlaa: ${status}`);
-            }
-        });
-    }, []);
+    const categories = useCategories();
 
     return (
         <>
