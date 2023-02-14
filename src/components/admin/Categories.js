@@ -5,7 +5,6 @@ import { useDebounce } from "use-debounce";
 import { CategoriesEdit } from "./CategoriesEdit";
 import { CategoriesList } from "./CategoriesList";
 import { useCategories } from "./useCategories";
-import { useFetch } from "./useFetch";
 
 axios.interceptors.request.use((config) => {
     console.log("Request sent to: ", config.url);
@@ -17,9 +16,10 @@ export function Categories() {
     const [query, setQuery] = useState("");
     const [searchedQuery] = useDebounce(query, 1000);
     const categories = useCategories();
-    const articles = useFetch("http://localhost:8000/articles?page=1");
 
-    console.log({ articles });
+    // const articles = useFetch("http://localhost:8000/articles?page=1");
+
+    // console.log({ articles });
 
     function closeModal() {
         setSearchParams({});
