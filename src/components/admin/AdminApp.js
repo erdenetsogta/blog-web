@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,8 +10,38 @@ import { ArticlesNew } from "./ArticlesNew";
 import { Categories } from "./Categories";
 import { Todos } from "./Todos";
 
+function Login() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    function handleLogin() {
+        axios.get(`http://localhost:8000/login?username=${username}&password=${password}`).then((res) => {
+            const { data, status } = res;
+            if (status === 200) {
+                const { token } = data;
+                localStorage.setItem("loginToken", token);
+                window.location.reload();
+            }
+        });
+    }
+
+    return (
+        <div style={{ width: 200, margin: "2em auto" }}>
+            <input className="form-control" placeholder="Хэрэглэгчийн нэр" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input type="password" className="form-control" placeholder="Нууц үг" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <button className="btn btn-primary" onClick={handleLogin}>
+                Нэвтрэх
+            </button>
+        </div>
+    );
+}
+
 export function AdminApp() {
     const displayName = useContext(UserContext);
+
+    if (!localStorage.getItem("loginToken")) {
+        return <Login />;
+    }
 
     return (
         <>
