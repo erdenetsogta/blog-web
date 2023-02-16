@@ -15,14 +15,23 @@ function Login() {
     const [password, setPassword] = useState("");
 
     function handleLogin() {
-        axios.get(`http://localhost:8000/login?username=${username}&password=${password}`).then((res) => {
-            const { data, status } = res;
-            if (status === 200) {
-                const { token } = data;
-                localStorage.setItem("loginToken", token);
-                window.location.reload();
-            }
-        });
+        axios
+            .get(`http://localhost:8000/login?username=${username}&password=${password}`)
+            .then((res) => {
+                const { data, status } = res;
+                if (status === 200) {
+                    const { token } = data;
+                    localStorage.setItem("loginToken", token);
+                    window.location.reload();
+                }
+            })
+            .catch(({ response, code }) => {
+                if (response.status === 401) {
+                    alert("Нууц үг эсвэл нэр буруу байна");
+                } else {
+                    alert(code);
+                }
+            });
     }
 
     return (
@@ -65,6 +74,11 @@ function AdminNavbar() {
 
     // const theme = useContext(ThemeContext); //dark, light
 
+    function logout() {
+        localStorage.removeItem("loginToken");
+        window.location.reload();
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -85,6 +99,7 @@ function AdminNavbar() {
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
+                <button onClick={logout}>Гарах</button>
             </Container>
         </Navbar>
     );
