@@ -9,7 +9,7 @@ export function CategoriesEdit({ show, onClose, onComplete, editingId }) {
     const [loading, setLoading] = useState(false);
     const [date, setDate] = useState("");
 
-    const a = useRef(0);
+    // const a = useRef(0);
 
     useEffect(() => {
         if (editingId) {
@@ -33,6 +33,7 @@ export function CategoriesEdit({ show, onClose, onComplete, editingId }) {
                     name: name,
                 })
                 .then((res) => {
+                    console.log(res);
                     const { status } = res;
                     if (status === 201) {
                         onComplete();
@@ -58,31 +59,12 @@ export function CategoriesEdit({ show, onClose, onComplete, editingId }) {
         }
     }
 
-    console.log(a);
-
     const inputEl = useRef();
     const divEl = useRef();
-
-    const myInterval = useRef();
 
     useEffect(() => {
         if (show) {
             inputEl.current.focus();
-            divEl.current.append("<strong> hello </strong>");
-            console.log(divEl.current);
-
-            myInterval.current = setInterval(() => {
-                // setDate(new Date().toISOString());
-                console.log("Inside interval", new Date());
-            }, 1000);
-
-            // clearInterval(myInterval);
-        }
-    }, [show]);
-
-    useEffect(() => {
-        if (!show) {
-            clearInterval(myInterval.current);
         }
     }, [show]);
 
@@ -91,16 +73,7 @@ export function CategoriesEdit({ show, onClose, onComplete, editingId }) {
             <Modal show={show} onHide={onClose}>
                 {date}
                 <Modal.Header closeButton>
-                    <Modal.Title>
-                        {a.current} Modal heading
-                        <button
-                            onClick={() => {
-                                a.current = 10;
-                            }}
-                        >
-                            Change a
-                        </button>
-                    </Modal.Title>
+                    <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div ref={divEl}>

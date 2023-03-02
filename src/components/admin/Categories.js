@@ -40,7 +40,14 @@ export function Categories() {
             {/* <button onClick={() => loadCategories(query)}>Хайх</button> */}
 
             <CategoriesList searchedQuery={searchedQuery} list={categories} />
-            <CategoriesEdit show={editing} editingId={editing} onClose={closeModal} />
+            <CategoriesEdit
+                show={editing}
+                editingId={editing}
+                onClose={closeModal}
+                onComplete={() => {
+                    window.location = "/admin/categories";
+                }}
+            />
         </div>
     );
 }
