@@ -5,10 +5,9 @@ import { useArticleMutations } from "./articleMutations";
 import { CategoriesSelector } from "./CategoriesSelector";
 
 export function ArticlesNew() {
-    const [text, setText] = useState();
+    const [content, setContent] = useState();
     const [title, setTitle] = useState("");
     const [categoryId, setCategoryId] = useState("");
-    // const createArticle = useCreateArticle();
     const { createArticle } = useArticleMutations();
 
     return (
@@ -21,19 +20,15 @@ export function ArticlesNew() {
 
             <CKEditor
                 editor={ClassicEditor}
-                data={text}
+                data={content}
                 onChange={(event, editor) => {
                     const data = editor.getData();
-                    setText(data);
+                    setContent(data);
                     // console.log({ event, editor, data });
                 }}
             />
 
-            <button onClick={() => createArticle({ title, categoryId, text })}>Хадгалах</button>
-
-            {/* <div>{text}</div>
-
-            <div dangerouslySetInnerHTML={{ __html: text }}></div> */}
+            <button onClick={() => createArticle({ title, categoryId, content })}>Хадгалах</button>
         </>
     );
 }

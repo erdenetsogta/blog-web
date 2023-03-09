@@ -41,7 +41,7 @@ export function Articles() {
                     {list.map((article) => (
                         <tr key={article.id}>
                             <td>{article.title}</td>
-                            <td>{article.category?.name}</td>
+                            <td>{article.categoryName}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export function useArticleMutations() {
-    function createArticle({ title, categoryId, text }) {
+    function createArticle({ title, categoryId, content }) {
         axios
             .post("http://localhost:8000/articles", {
                 title, // title: title,
                 categoryId, //  categoryId: categoryId,
-                text, // text: text,
+                content,
             })
             .then((res) => {
                 const { status } = res;
