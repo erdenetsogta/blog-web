@@ -3,24 +3,24 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CategoriesSelector } from "./CategoriesSelector";
 import { useArticles } from "./useArticles";
 
+const size = 50;
+
 export function Articles() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [pages, setPages] = useState();
     const [categoryId, setCategoryId] = useState("");
     const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-    const { list, count } = useArticles(page, "", categoryId);
+    const { list, count } = useArticles(page, size, "", categoryId);
 
     useEffect(() => {
         if (count) {
-            setPages(Math.ceil(count / 10));
+            setPages(Math.ceil(count / size));
         }
     }, [count]);
 
     useEffect(() => {
         setSearchParams({ page: 1 });
     }, [categoryId]);
-
-    console.log({ page, pages, count });
 
     return (
         <>

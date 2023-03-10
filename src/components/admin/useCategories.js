@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export function useCategories() {
+export function useCategories(searchedQuery) {
     const [list, setList] = useState([]);
 
     function loadCategories(query = "") {
@@ -17,8 +17,8 @@ export function useCategories() {
     }
 
     useEffect(() => {
-        loadCategories("");
-    }, []);
+        loadCategories(searchedQuery);
+    }, [searchedQuery]);
 
     return list;
 }

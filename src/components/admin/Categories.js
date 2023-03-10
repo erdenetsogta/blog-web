@@ -15,7 +15,7 @@ export function Categories() {
     const [searchParams, setSearchParams] = useSearchParams({});
     const [query, setQuery] = useState("");
     const [searchedQuery] = useDebounce(query, 1000);
-    const categories = useCategories();
+    const categories = useCategories(searchedQuery);
 
     // const articles = useFetch("http://localhost:8000/articles?page=1");
 
